@@ -52,6 +52,22 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
+        #christmasTree {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 200px;
+            height: auto;
+            display: none;
+        }
+        #christmasMan {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: auto;
+            display: none;
+        }
 
         /* Responsive styles */
         @media only screen and (max-width: 768px) {
@@ -61,7 +77,18 @@
             }
             #message {
                 font-size: 36px;
+                top: 40%;
+                left: 55%;
             }
+             #christmasTree { 
+                bottom: 80px; 
+                width: 80px; 
+            }
+            #christmasMan { 
+                bottom: 80px; 
+                width: 80px; 
+            }
+
         }
 
         @media only screen and (max-width: 480px) {
@@ -70,15 +97,28 @@
                 padding: 6px 12px;
             }
             #message {
-                font-size: 24px;
+                font-size: 15px;
+                top: 40%;
+                left: 55%;
             }
+            #christmasTree {
+                bottom: 120px; 
+                width: 70px; 
+            }
+            #christmasMan { 
+                bottom: 120px; 
+                width: 70px; 
+            }
+
         }
     </style>
 </head>
 <body>
-    <button id="triggerButton">Surprise Me</button>
+    <button id="triggerButton">Click Me To Superise You</button>
     <div id="message">Happy New Year, Muska!</div>
     <canvas id="fireworksCanvas"></canvas>
+    <img id="christmasTree" src="img/tree.png" alt="Christmas Tree">
+    <img id="christmasMan" src="img/man.png" alt="Christmas Man">
     <audio id="fireworkSound" src="https://www.soundjay.com/fireworks/sounds/fireworks-explosion-1.mp3" preload="auto"></audio> <!-- Online sound URL -->
     <script>
         const canvas = document.getElementById('fireworksCanvas');
@@ -86,6 +126,8 @@
         const button = document.getElementById('triggerButton');
         const message = document.getElementById('message');
         const sound = document.getElementById('fireworkSound');
+        const christmasTree = document.getElementById('christmasTree');
+        const christmasMan = document.getElementById('christmasMan');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -187,9 +229,12 @@
 
         button.addEventListener('click', () => {
             message.style.opacity = 1;
+            christmasTree.style.display = 'block';
+            christmasMan.style.display = 'block';
+
             setTimeout(() => {
                 message.style.opacity = 0;
-            }, 6000); // Display the message for a bit longer
+            }, 4000); // Display the message for a bit longer
 
             const x = Math.random() * canvas.width;
             const y = Math.random() * canvas.height * 0.6;
@@ -199,6 +244,12 @@
                     spawnFirework(Math.random() * canvas.width, Math.random() * canvas.height * 0.6);
                 }
             }, 500);
+
+            // Hide Christmas decorations after 5 seconds
+            setTimeout(() => {
+                christmasTree.style.display = 'none';
+                christmasMan.style.display = 'none';
+            }, 5000);
         });
 
         window.addEventListener('resize', () => {
